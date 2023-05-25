@@ -52,8 +52,8 @@ def main():
     print(f"{'flag' :<15} : {args.flag}")
 
     # check for data folder, if not present create one
-    if not os.path.exists("data"):
-        os.makedirs("data")
+    if not os.path.exists("../data"):
+        os.makedirs("../data")
 
 
 
@@ -92,9 +92,13 @@ def main():
 
     if args.flag:
         tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
+        trainer = BpeTrainer(vocab_size=args.vocab_size,special_tokens=["[UNK]"])
+        print("Using UNK token")
     else:
         tokenizer = Tokenizer(BPE())
-    trainer = BpeTrainer(vocab_size=args.vocab_size,special_tokens=["[UNK]"])
+        trainer = BpeTrainer(vocab_size=args.vocab_size)
+        print("Not using UNK token")
+    
     tokenizer.pre_tokenizer = Whitespace()
 
     files = [f"../data/libri_text_lowercase_normalized.txt"]
@@ -143,10 +147,11 @@ def main():
     print(f"shape of the dataframe after {args.min_duration} second and {args.num_subwords} tokens cirteria:",df_subset.shape)
     print("total unique words in the dataset:", len(df_subset["word"].unique()))
 
-    # step1 completed : filtering
-    print("saving the filtered data....")
-    df_subset = df_subset.groupby("word").filter(lambda x: len(x) > 25)
-    df_subset.to_csv("../data/dataset_prepared_" + str(args.num_subwords) + '_' + str(args.vocab_size) + '_' + str(args.num_sampling) + '_' + str(args.num_deletion) + ".csv",index=False)
+    # # step1 (not required for this) : filtering, take thw words which have more than 25 occurences
+    # print("saving the filtered data....")
+    # df_subset = df_subset.groupby("word").filter(lambda x: len(x) > 25)
+    
+    # df_subset.to_csv("../data/dataset_prepared_" + str(args.num_subwords) + '_' + str(args.vocab_size) + '_' + str(args.num_sampling) + '_' + str(args.num_deletion) + ".csv",index=False)
 
     # step2 is here: sampling
     df_uniform = sampling(df_subset,args.num_sampling,args.num_deletion)

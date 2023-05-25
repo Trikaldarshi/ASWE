@@ -173,21 +173,3 @@ def sampling(df,num_sampling, num_deletion, plot=True):
         plt.close()
     return df_uniform
 
-# ## update the data to add path of corresponding librispeech file:
-
-# with open("../libri_metadata/filename_list.txt","r") as file:
-#     filename_list = file.readlines()
-# filename_pd = pd.DataFrame()
-# filename_pd["path"] = filename_list
-
-# df_uniform['sp_id_and_ch_id'] = df_uniform['filename'].apply(get_spk_id_and_ch_id)
-
-# print("progress")
-# df_uniform['filename_path'] = df_uniform['sp_id_and_ch_id'].swifter.apply(match_string, df2=filename_pd)
-# df_uniform.to_csv("df_uniform_complete.csv",index=False)
-
-# print("head of the datast prepared")
-
-# df_uniform.head()
-# # check for null values:
-# print("is null", df_uniform.isnull().sum())
