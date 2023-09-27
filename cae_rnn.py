@@ -185,7 +185,7 @@ def main():
 
   # make sure the output directory is ALREADY created BEFORE initializing wandb
   if args.wandb:
-    wandb.init(project="word2awe", resume=True, dir=args.path_to_output)
+    wandb.init(project="emnlp-2023", resume=True, dir=args.path_to_output)
     wandb.config.update(args)
 
   ## create a unique output checkpoint storage location with argument files
