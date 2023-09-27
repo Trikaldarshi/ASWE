@@ -8,7 +8,7 @@ __pycache__/
 bash_script/
 checkpoints/
 config_files/
-data/
+# data/
 logs/
 
 # local files that are not needed
